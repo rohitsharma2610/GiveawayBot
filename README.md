@@ -18,7 +18,7 @@ A feature-rich giveaway bot for Discord with both slash and prefix commands, rea
 2. **Clone the repository**:
    ```bash
    git clone https://github.com/Unknownzop/GiveawayBot.git
-   cd discord-giveaway-bot
+   cd GiveawayBot
    ```
 3. **Install dependencies**:
    ```bash

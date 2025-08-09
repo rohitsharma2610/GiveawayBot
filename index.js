@@ -137,7 +137,7 @@ async function endGiveaway(messageId, channel) {
         .setTitle('🎉 GIVEAWAY ENDED 🎉')
         .setDescription(`**Prize:** ${giveaway.prize}\n**Winners:** ${winnerText}`)
         .setColor('#FF0000')
-        .setFooter({ text: `${client.user.username} Giveaway System` })
+     
         .setTimestamp();
 
     const endMessage = await channel.send({ embeds: [endEmbed] });
@@ -240,7 +240,7 @@ client.on('messageCreate', async message => {
         const success = await endGiveaway(messageId, message.channel);
         if (!success) return message.reply('Could not find an active giveaway with that ID.');
 
-        await message.reply(`${client.user.username} ended the giveaway successfully!`);
+        await message.reply(`${giveaway.winners} are the winner`)
     }
 
     if (command === 'reroll') {

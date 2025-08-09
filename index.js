@@ -93,7 +93,7 @@
                     'React with 🎉 to enter!'
                 )
                 .setColor('#FFD700')
-                .setFooter({ text: `${client.user.username} Giveaway System` })
+                .setFooter({ text: `${client.user.username} Giveaways!` })
                 .setTimestamp();
         }
 

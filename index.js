@@ -84,7 +84,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    client.user.setActivity('/help', { type: ActivityType.Playing });
+    client.user.setActivity('Sumit007', { type: ActivityType.Playing });
 });
 
 /**

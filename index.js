@@ -43,7 +43,6 @@ const commands = [
         description: 'Start a new giveaway',
         options: [
             { name: 'channel', type: 7, description: 'Channel to start giveaway in', required: true },
-            { name: 'duration', type: 3, description: 'Duration (e.g., 6d 2h 30m)', required: true },
             { name: 'prize', type: 3, description: 'Prize to win', required: true },
             { name: 'winners', type: 4, description: 'Number of winners', required: true }
         ]

@@ -368,14 +368,15 @@ client.on('interactionCreate', async interaction => {
  * Express server
  */
 app.get('/', (req, res) => {
-    res.send(`${client.user?.username || 'Giveaway Bot'} is running!`);
+    res.send(${client.user?.username || 'Giveaway Bot'} is running!);
 });
-
 
 client.login(process.env.TOKEN)
     .then(() => {
-        console.log(`${client.user.username} is ready!`);
-        client.user.setActivity('Sumit007', { type: ActivityType.Playing });
+        app.listen(PORT, () => {
+            console.log(Server running on port ${PORT});
+            console.log(${client.user.username} is ready!);
+        });
     })
     .catch(err => {
         console.error('Failed to login:', err);

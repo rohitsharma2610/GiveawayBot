@@ -5,7 +5,6 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 // Discord client setup
 const client = new Client({
     intents: [
@@ -84,7 +83,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 })();
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
+    console.log(Logged in as ${client.user.tag});
     client.user.setActivity('Sumit007', { type: ActivityType.Playing });
 });
 
@@ -98,14 +97,14 @@ function createGiveawayEmbed(durationStr, prize, winners) {
     return new EmbedBuilder()
         .setTitle('🎉 GIVEAWAY 🎉')
         .setDescription(
-            `**Prize:** ${prize}\n` +
-            `**Duration:** ${durationStr}\n` +
-            `**Ends:** <t:${endTimestamp}:F> (<t:${endTimestamp}:R>)\n` +
-            `**Winners:** ${winners}\n\n` +
+            **Prize:** ${prize}\n +
+            **Duration:** ${durationStr}\n +
+            **Ends:** <t:${endTimestamp}:F> (<t:${endTimestamp}:R>)\n +
+            **Winners:** ${winners}\n\n +
             'React with 🎉 to enter!'
         )
         .setColor('#FFD700')
-        .setFooter({ text: `${client.user.username} Giveaway System` })
+        .setFooter({ text: ${client.user.username} Giveaway System })
         .setTimestamp();
 }
 
@@ -113,7 +112,7 @@ function createGiveawayEmbed(durationStr, prize, winners) {
  * End giveaway
  */
 async function endGiveaway(messageId, channel) {
-    if (!activeGiveaways.has(messageId)) return null;
+    if (!activeGiveaways.has(messageId)) return false;
 
     const giveaway = activeGiveaways.get(messageId);
     clearTimeout(giveaway.timeout);
@@ -128,7 +127,7 @@ async function endGiveaway(messageId, channel) {
     let winners = [];
     for (let i = 0; i < giveaway.winners && participants.length > 0; i++) {
         const winnerIndex = Math.floor(Math.random() * participants.length);
-        winners.push(`<@${participants[winnerIndex]}>`);
+        winners.push(<@${participants[winnerIndex]}>);
         participants.splice(winnerIndex, 1);
     }
 
@@ -136,7 +135,7 @@ async function endGiveaway(messageId, channel) {
 
     const endEmbed = new EmbedBuilder()
         .setTitle('🎉 GIVEAWAY ENDED 🎉')
-        .setDescription(`**Prize:** ${giveaway.prize}\n**Winners:** ${winnerText}`)
+        .setDescription(**Prize:** ${giveaway.prize}\n**Winners:** ${winnerText})
         .setColor('#FF0000')
      
         .setTimestamp();
@@ -171,7 +170,7 @@ async function rerollGiveaway(messageId) {
     let newWinners = [];
     for (let i = 0; i < giveaway.winners && participants.length > 0; i++) {
         const winnerIndex = Math.floor(Math.random() * participants.length);
-        newWinners.push(`<@${participants[winnerIndex]}>`);
+        newWinners.push(<@${participants[winnerIndex]}>);
         participants.splice(winnerIndex, 1);
     }
 
@@ -210,7 +209,7 @@ client.on('messageCreate', async message => {
         if (isNaN(winners) || winners < 1) return message.reply('Please specify a valid number of winners.');
 
         const durationMs = parseDuration(duration);
-        if (!durationMs) return message.reply('Invalid duration format. Example: `6d 2h 30m`');
+        if (!durationMs) return message.reply('Invalid duration format. Example: 6d 2h 30m');
 
         const embed = createGiveawayEmbed(duration, prize, winners);
         const giveawayMessage = await channel.send({ embeds: [embed] });
@@ -227,7 +226,7 @@ client.on('messageCreate', async message => {
             timeout
         });
 
-        await message.reply(`Giveaway started in ${channel}!`);
+        await message.reply(Giveaway started in ${channel}!);
     }
 
     if (command === 'end') {
@@ -241,7 +240,7 @@ client.on('messageCreate', async message => {
         const success = await endGiveaway(messageId, message.channel);
         if (!success) return message.reply('Could not find an active giveaway with that ID.');
 
-        await message.reply(`${giveaway.winners} are the winner`)
+        await message.reply(${giveaway.winners} are the winner)
     }
 
     if (command === 'reroll') {
@@ -259,9 +258,9 @@ client.on('messageCreate', async message => {
 
         const rerollEmbed = new EmbedBuilder()
             .setTitle('🎉 GIVEAWAY REROLLED 🎉')
-            .setDescription(`**Prize:** ${result.prize}\n**New Winners:** ${winnerText}`)
+            .setDescription(**Prize:** ${result.prize}\n**New Winners:** ${winnerText})
             .setColor('#00FF00')
-            .setFooter({ text: `${client.user.username} Giveaway System` })
+            .setFooter({ text: ${client.user.username} Giveaway System })
             .setTimestamp();
 
         const endMessage = await result.channel.messages.fetch(result.endMessageId).catch(() => null);
@@ -271,7 +270,7 @@ client.on('messageCreate', async message => {
             await result.channel.send({ embeds: [rerollEmbed] });
         }
 
-        await message.reply(`${client.user.username} rerolled the giveaway successfully!`);
+        await message.reply(${client.user.username} rerolled the giveaway successfully!);
     }
 });
 
@@ -294,7 +293,7 @@ client.on('interactionCreate', async interaction => {
         const winners = options.getInteger('winners');
 
         const durationMs = parseDuration(duration);
-        if (!durationMs) return interaction.reply({ content: 'Invalid duration format. Example: `6d 2h 30m`', ephemeral: true });
+        if (!durationMs) return interaction.reply({ content: 'Invalid duration format. Example: 6d 2h 30m', ephemeral: true });
 
         const embed = createGiveawayEmbed(duration, prize, winners);
         const giveawayMessage = await channel.send({ embeds: [embed] });
@@ -311,7 +310,7 @@ client.on('interactionCreate', async interaction => {
             timeout
         });
 
-        await interaction.reply({ content: `Giveaway started in ${channel}!`, ephemeral: true });
+        await interaction.reply({ content: Giveaway started in ${channel}!, ephemeral: true });
     }
 
     if (commandName === 'end') {
@@ -326,7 +325,7 @@ client.on('interactionCreate', async interaction => {
             return interaction.reply({ content: 'Could not find an active giveaway with that ID.', ephemeral: true });
         }
 
-        await interaction.reply({ content: `${client.user.username} ended the giveaway successfully!`, ephemeral: true });
+        await interaction.reply({ content: ${client.user.username} ended the giveaway successfully!, ephemeral: true });
     }
 
     if (commandName === 'reroll') {
@@ -345,9 +344,9 @@ client.on('interactionCreate', async interaction => {
 
         const rerollEmbed = new EmbedBuilder()
             .setTitle('🎉 GIVEAWAY REROLLED 🎉')
-            .setDescription(`**Prize:** ${result.prize}\n**New Winners:** ${winnerText}`)
+            .setDescription(**Prize:** ${result.prize}\n**New Winners:** ${winnerText})
             .setColor('#00FF00')
-            .setFooter({ text: `${client.user.username} Giveaway System` })
+            .setFooter({ text: ${client.user.username} Giveaway System })
             .setTimestamp();
 
         const endMessage = await result.channel.messages.fetch(result.endMessageId).catch(() => null);
@@ -357,7 +356,7 @@ client.on('interactionCreate', async interaction => {
             await result.channel.send({ embeds: [rerollEmbed] });
         }
 
-        await interaction.reply({ content: `${client.user.username} rerolled the giveaway successfully!`, ephemeral: true });
+        await interaction.reply({ content: ${client.user.username} rerolled the giveaway successfully!, ephemeral: true });
     }
 });
 

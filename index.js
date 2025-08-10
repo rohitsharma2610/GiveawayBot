@@ -5,6 +5,10 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
 // Discord client setup
 const client = new Client({
     intents: [
@@ -367,12 +371,11 @@ app.get('/', (req, res) => {
     res.send(`${client.user?.username || 'Giveaway Bot'} is running!`);
 });
 
+
 client.login(process.env.TOKEN)
     .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-            console.log(`${client.user.username} is ready!`);
-        });
+        console.log(`${client.user.username} is ready!`);
+        client.user.setActivity('Sumit007', { type: ActivityType.Playing });
     })
     .catch(err => {
         console.error('Failed to login:', err);

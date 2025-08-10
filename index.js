@@ -96,20 +96,23 @@ function parseDuration(str) {
         });
 
         // Helper function to create giveaway embed
-        function createGiveawayEmbed(duration, prize, winners) {
-            return new EmbedBuilder()
-                .setTitle('🎉 GIVEAWAY 🎉')
-                .setDescription(
-                    **Prize:** ${prize}\n +
-            **Duration:** ${durationStr}\n +
-            **Ends:** <t:${endTimestamp}:F> (<t:${endTimestamp}:R>)\n +
-            **Winners:** ${winners}\n\n +
+    function createGiveawayEmbed(durationStr, prize, winners) {
+    const durationMs = parseDuration(durationStr);
+    const endTimestamp = Math.floor((Date.now() + durationMs) / 1000);
+
+    return new EmbedBuilder()
+        .setTitle('🎉 GIVEAWAY 🎉')
+        .setDescription(
+            `**Prize:** ${prize}\n` +
+            `**Duration:** ${durationStr}\n` +
+            `**Ends:** <t:${endTimestamp}:F> (<t:${endTimestamp}:R>)\n` +
+            `**Winners:** ${winners}\n\n` +
             'React with 🎉 to enter!'
         )
-                .setColor('#FFD700')
-                .setFooter({ text: `${client.user.username} Giveaway System` })
-                .setTimestamp();
-        }
+        .setColor('#FFD700')
+        .setFooter({ text: `${client.user.username} Giveaway System` })
+        .setTimestamp();
+}
 
         // Helper function to end giveaway
         async function endGiveaway(messageId, channel) {

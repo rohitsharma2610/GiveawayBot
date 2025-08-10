@@ -38,10 +38,9 @@ function parseDuration(str) {
                 name: 'start',
                 description: 'Start a new giveaway',
                 options: [
-                    { name: 'channel', type: 7, description: 'Channel to start giveaway in', required: true },
-                    { name: 'duration', type: 3, description: 'Duration (e.g., 1d, 2h)', required: true },
-                    { name: 'prize', type: 3, description: 'Prize to win', required: true },
-                    { name: 'winners', type: 4, description: 'Number of winners', required: true }
+                   { name: 'channel', type: 7, description: 'Channel to start giveaway in', required: true },
+            { name: 'prize', type: 3, description: 'Prize to win', required: true },
+            { name: 'winners', type: 4, description: 'Number of winners', required: true }
                 ]
             },
             {

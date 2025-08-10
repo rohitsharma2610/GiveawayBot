@@ -112,7 +112,7 @@ function createGiveawayEmbed(durationStr, prize, winners) {
  * End giveaway
  */
 async function endGiveaway(messageId, channel) {
-    if (!activeGiveaways.has(messageId)) return false;
+    if (!activeGiveaways.has(messageId)) return null;
 
     const giveaway = activeGiveaways.get(messageId);
     clearTimeout(giveaway.timeout);
